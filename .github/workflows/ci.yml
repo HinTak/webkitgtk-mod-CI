@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - README.md
+      - .github/**
+    tags:
+      - webkitgtk-*
+
+jobs:
+  fedora-job:
+    runs-on: ubuntu-24.04
+    container: fedora:40
+    permissions: write-all
+    steps:
+      - run: cat /etc/os-release
+      - run: df
+      - run: dnf install -y dnf-utils rpm-build
+      - run: curl -o a.rpm https://kojipkgs.fedoraproject.org/packages/webkitgtk/2.44.3/2.fc40/src/webkitgtk-2.44.3-2.fc40.src.rpm
+      - run: dnf builddep -y --srpm a.rpm
+      - run: dnf clean all
+      - run: df
+      - run: rpm -ivh a.rpm
+      - uses: actions/checkout@v4
+      - run: pushd ~/rpmbuild/SPECS && rpmbuild -bb webkitgtk.spec && popd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rpms
+          path: RPMS
+      - run: zip -r9X rpms.zip RPMS
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/webkitgtk')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            rpms.zip
+          draft: false
+          prerelease: false
