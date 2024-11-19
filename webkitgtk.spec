@@ -192,6 +192,7 @@ License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND (Apache-2.0 OR GPL-3.
 
 %description -n webkitgtk6.0-doc
 This package contains developer documentation for webkitgtk6.0.
+%endif
 
 %package -n     javascriptcoregtk6.0
 Summary:        JavaScript engine from webkitgtk6.0
