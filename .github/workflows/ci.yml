@@ -23,7 +23,7 @@ jobs:
       - run: df
       - run: rpm -ivh a.rpm
       - uses: actions/checkout@v4
-      - run: pushd ~/rpmbuild/SPECS && rpmbuild -bb webkitgtk.spec && popd
+      - run: rpmbuild -bb webkitgtk.spec
       - uses: actions/upload-artifact@v4
         with:
           name: rpms
