@@ -1,0 +1,52 @@
+From 76541f0692426005fe1deafe019d829ceb959242 Mon Sep 17 00:00:00 2001
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+Date: Wed, 20 Nov 2024 22:33:20 +0000
+Subject: [PATCH 3/3] Calling SkGraphics::SetOpenTypeSVGDecoderFactory and
+ Symlink header
+
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ Source/ThirdParty/skia/CMakeLists.txt                   | 5 +++++
+ Source/WebCore/platform/graphics/skia/FontCacheSkia.cpp | 3 +++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 350ac744..581f1f1f 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -994,6 +994,11 @@ file(CREATE_LINK
+     "${Skia_FRAMEWORK_HEADERS_DIR}/skia"
+     SYMBOLIC
+ )
++file(CREATE_LINK
++    "${CMAKE_CURRENT_SOURCE_DIR}/modules/svg/include"
++    "${Skia_FRAMEWORK_HEADERS_DIR}/skia-svg"
++    SYMBOLIC
++)
+ 
+ target_compile_definitions(Skia PRIVATE
+     SKIA_IMPLEMENTATION=1
+diff --git a/Source/WebCore/platform/graphics/skia/FontCacheSkia.cpp b/Source/WebCore/platform/graphics/skia/FontCacheSkia.cpp
+index 92a88f6b..adfc0da7 100644
+--- a/Source/WebCore/platform/graphics/skia/FontCacheSkia.cpp
++++ b/Source/WebCore/platform/graphics/skia/FontCacheSkia.cpp
+@@ -33,6 +33,8 @@
+ #include <skia/ports/SkFontMgr_android.h>
+ #else
+ #include <skia/ports/SkFontMgr_fontconfig.h>
++#include <skia/core/SkGraphics.h>
++#include <skia-svg/SkSVGOpenTypeSVGDecoder.h>
+ #endif
+ #include <wtf/Assertions.h>
+ #include <wtf/text/CString.h>
+@@ -56,6 +58,7 @@ SkFontMgr& FontCache::fontManager() const
+         m_fontManager = SkFontMgr_New_Android(nullptr);
+ #else
+         m_fontManager = SkFontMgr_New_FontConfig(FcConfigReference(nullptr));
++        SkGraphics::SetOpenTypeSVGDecoderFactory(SkSVGOpenTypeSVGDecoder::Make);
+ #endif
+     }
+     RELEASE_ASSERT(m_fontManager);
+-- 
+2.47.0
+
