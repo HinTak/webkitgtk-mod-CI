@@ -67,6 +67,10 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
+Patch1001: 0001-skresources-and-svg.patch
+Patch1002: 0002-Adding-svg-and-skresources-to-CMakeLists.txt.patch
+Patch1003: 0003-Calling-SkGraphics-SetOpenTypeSVGDecoderFactory-and-.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang
@@ -213,6 +217,10 @@ files for developing applications that use JavaScript engine from webkitgtk-6.0.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n webkitgtk-%{version}
+
+%patch -P1001 -p1 -b .OT-SVG1
+%patch -P1002 -p1 -b .OT-SVG2
+%patch -P1003 -p1 -b .OT-SVG3
 
 %build
 # Increase the DIE limit so our debuginfo packages can be size-optimized.

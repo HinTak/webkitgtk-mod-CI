@@ -23,6 +23,7 @@ jobs:
       - run: df
       - run: rpm -ivh a.rpm
       - uses: actions/checkout@v4
+      - run: cp *.patch ~/rpmbuild/SOURCES/
       - run: rpmbuild -bb webkitgtk.spec
       - run: df
       - run: rm -f ~/rpmbuild/RPMS/x86_64/*debug*
