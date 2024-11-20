@@ -218,10 +218,6 @@ files for developing applications that use JavaScript engine from webkitgtk-6.0.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n webkitgtk-%{version}
 
-%patch -P1001 -p1 -b .OT-SVG1
-%patch -P1002 -p1 -b .OT-SVG2
-%patch -P1003 -p1 -b .OT-SVG3
-
 %build
 # Increase the DIE limit so our debuginfo packages can be size-optimized.
 # This previously decreased the size for x86_64 from ~5G to ~1.1G, but as of
