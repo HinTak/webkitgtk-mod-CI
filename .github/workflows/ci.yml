@@ -24,6 +24,9 @@ jobs:
       - run: rpm -ivh a.rpm
       - uses: actions/checkout@v4
       - run: rpmbuild -bb webkitgtk.spec
+      - run: df
+      - run: rm -f ~/rpmbuild/RPMS/x86_64/*debug*
+      - run: cp -r ~/rpmbuild/RPMS .
       - uses: actions/upload-artifact@v4
         with:
           name: rpms
