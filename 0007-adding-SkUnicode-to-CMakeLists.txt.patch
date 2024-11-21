@@ -1,0 +1,31 @@
+From 017d1f195988178bc0bf7a4a40fca35f2fcbaf76 Mon Sep 17 00:00:00 2001
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+Date: Thu, 21 Nov 2024 01:30:33 +0000
+Subject: [PATCH 7/7] adding SkUnicode to CMakeLists.txt
+
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ Source/ThirdParty/skia/CMakeLists.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 0c467718..0f7ffaeb 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -947,6 +947,13 @@ add_library(Skia STATIC
+     modules/skshaper/src/SkShaper_harfbuzz.cpp
+     modules/skshaper/src/SkShaper_primitive.cpp
+     modules/skshaper/src/SkShaper_skunicode.cpp
++
++    modules/skunicode/src/SkBidiFactory_icu_full.cpp
++    modules/skunicode/src/SkUnicode.cpp
++    modules/skunicode/src/SkUnicode_hardcoded.cpp
++    modules/skunicode/src/SkUnicode_icu.cpp
++    modules/skunicode/src/SkUnicode_icu_bidi.cpp
++    modules/skunicode/src/SkUnicode_icu_builtin.cpp
+ )
+ 
+ if (ANDROID)
+-- 
+2.47.0
+
