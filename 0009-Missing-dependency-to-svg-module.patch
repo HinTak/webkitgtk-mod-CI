@@ -1,0 +1,54 @@
+From d9cd64e8bad4f5428836073c0d74ad6e688f8031 Mon Sep 17 00:00:00 2001
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+Date: Thu, 21 Nov 2024 23:07:18 +0000
+Subject: [PATCH 9/9] Missing dependency to svg module
+
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ Source/ThirdParty/skia/CMakeLists.txt | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 98080c64..da5707f4 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -120,6 +120,7 @@ endif ()
+ #
+ add_library(Skia STATIC
+     src/base/SkArenaAlloc.cpp
++    src/base/SkBase64.cpp
+     src/base/SkBezierCurves.cpp
+     src/base/SkBlockAllocator.cpp
+     src/base/SkBuffer.cpp
+@@ -619,6 +620,7 @@ add_library(Skia STATIC
+     src/effects/Sk1DPathEffect.cpp
+     src/effects/Sk2DPathEffect.cpp
+     src/effects/SkBlenders.cpp
++    src/effects/SkColorMatrix.cpp
+     src/effects/SkCornerPathEffect.cpp
+     src/effects/SkDashPathEffect.cpp
+     src/effects/SkDiscretePathEffect.cpp
+@@ -866,6 +868,9 @@ add_library(Skia STATIC
+     src/utils/SkJSONWriter.cpp
+     src/utils/SkMatrix22.cpp
+     src/utils/SkNWayCanvas.cpp
++    src/utils/SkOSPath.cpp
++    src/utils/SkParse.cpp
++    src/utils/SkParsePath.cpp
+     src/utils/SkPatchUtils.cpp
+     src/utils/SkPolyUtils.cpp
+     src/utils/SkShaderUtils.cpp
+@@ -889,6 +894,10 @@ add_library(Skia STATIC
+     src/sfnt/SkOTTable_name.cpp
+     src/sfnt/SkOTUtils.cpp
+ 
++    src/xml/SkDOM.cpp
++    src/xml/SkXMLParser.cpp
++    src/xml/SkXMLWriter.cpp
++
+     modules/skcms/skcms.cc
+     modules/skcms/src/skcms_TransformBaseline.cc
+     modules/skcms/src/skcms_TransformHsw.cc
+-- 
+2.47.0
+
