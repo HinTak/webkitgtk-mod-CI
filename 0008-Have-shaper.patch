@@ -1,18 +1,26 @@
-From c804543c1f7cb7d8c774eb71b37f1aa8fcd9c2ce Mon Sep 17 00:00:00 2001
+From 5b1d4debd7104c67aea710859b472c38a78ae75d Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Thu, 21 Nov 2024 04:16:10 +0000
 Subject: [PATCH 8/8] Have shaper
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---
- Source/ThirdParty/skia/CMakeLists.txt | 3 +++
- 1 file changed, 3 insertions(+)
+ Source/ThirdParty/skia/CMakeLists.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index 0f7ffaeb..f5d2d7b1 100644
+index 0f7ffaeb..98080c64 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
-@@ -1028,6 +1028,9 @@ target_compile_definitions(Skia PUBLIC
+@@ -975,6 +975,7 @@ endif ()
+ 
+ target_link_libraries(Skia PRIVATE
+     Epoxy::Epoxy
++    HarfBuzz::HarfBuzz
+     Freetype::Freetype
+     JPEG::JPEG
+     PNG::PNG
+@@ -1028,6 +1029,9 @@ target_compile_definitions(Skia PUBLIC
      SK_DISABLE_LEGACY_PNG_WRITEBUFFER
      SK_DISABLE_TRACING
      SK_DISABLE_WEBGL_INTERFACE
