@@ -70,6 +70,8 @@ Source2:        webkitgtk-keys.gpg
 Patch1001: 0001-skresources-and-svg.patch
 Patch1002: 0002-Adding-svg-and-skresources-to-CMakeLists.txt.patch
 Patch1003: 0003-Calling-SkGraphics-SetOpenTypeSVGDecoderFactory-and-.patch
+Patch1004: 0004-needs-skshaper.patch
+Patch1005: 0005-Adding-SkShaper-to-CMakeLists.txt.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
