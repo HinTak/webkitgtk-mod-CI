@@ -74,6 +74,7 @@ Patch1004: 0004-needs-skshaper.patch
 Patch1005: 0005-Adding-SkShaper-to-CMakeLists.txt.patch
 Patch1006: 0006-skshaper-needs-skunicode.patch
 Patch1007: 0007-adding-SkUnicode-to-CMakeLists.txt.patch
+Patch1008: 0008-Have-shaper.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap

@@ -1,0 +1,27 @@
+From c804543c1f7cb7d8c774eb71b37f1aa8fcd9c2ce Mon Sep 17 00:00:00 2001
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+Date: Thu, 21 Nov 2024 04:16:10 +0000
+Subject: [PATCH 8/8] Have shaper
+
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ Source/ThirdParty/skia/CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 0f7ffaeb..f5d2d7b1 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -1028,6 +1028,9 @@ target_compile_definitions(Skia PUBLIC
+     SK_DISABLE_LEGACY_PNG_WRITEBUFFER
+     SK_DISABLE_TRACING
+     SK_DISABLE_WEBGL_INTERFACE
++    SK_SHAPER_PRIMITIVE_AVAILABLE
++    SK_SHAPER_HARFBUZZ_AVAILABLE
++    SK_SHAPER_UNICODE_AVAILABLE
+ 
+     SK_ENABLE_PRECOMPILE
+ 
+-- 
+2.47.0
+
