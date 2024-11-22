@@ -1,4 +1,4 @@
-From 31fcc489d8de9267b9b053e9eb2ed299ac2e4f9b Mon Sep 17 00:00:00 2001
+From fec8178958cdd907ab30d5cac54148a345f01b3d Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Thu, 21 Nov 2024 23:07:18 +0000
 Subject: [PATCH 5/7] Missing files from webkitgtk's skia core which svg module

@@ -1,4 +1,4 @@
-From e0f5a2c0288be926871228c2951b0cb7dcde4748 Mon Sep 17 00:00:00 2001
+From 41df79d670e72c484cfb64996b997d0709f75a5b Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Fri, 22 Nov 2024 00:02:15 +0000
 Subject: [PATCH 6/7] XML code needs expat

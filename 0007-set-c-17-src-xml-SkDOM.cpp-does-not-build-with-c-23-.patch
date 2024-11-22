@@ -1,4 +1,4 @@
-From b1b04be5b5312321b0cec9a017d9dd6842776ba7 Mon Sep 17 00:00:00 2001
+From ba00a7902ba2915cd7f971c38ddea8e3af1155a5 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Fri, 22 Nov 2024 02:47:20 +0000
 Subject: [PATCH 7/7] set c++ 17 - src/xml/SkDOM.cpp does not build with c++23;
