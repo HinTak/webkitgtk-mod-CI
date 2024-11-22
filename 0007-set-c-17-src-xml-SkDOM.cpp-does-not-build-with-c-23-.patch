@@ -1,0 +1,26 @@
+From dc930164f57ea0bc230918f6b99e06a202258eb9 Mon Sep 17 00:00:00 2001
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+Date: Fri, 22 Nov 2024 02:47:20 +0000
+Subject: [PATCH 7/7] set c++ 17 - src/xml/SkDOM.cpp does not build with c++23;
+ "std::unique_ptr<SkDOMParser> fParser;" line in header
+
+Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
+---
+ Source/ThirdParty/skia/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 44adc415..62e16696 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -115,6 +115,7 @@ if (DEVELOPER_MODE AND (SKIA_ROOT_DIR OR NOT "$ENV{SKIA_ROOT_DIR}" STREQUAL ""))
+     return ()
+ endif ()
+ 
++set (CMAKE_CXX_STANDARD 17)
+ #
+ # The target definition lists sources which always get built.
+ # The rest may be added later as-needed with target_sources().
+-- 
+2.47.0
+

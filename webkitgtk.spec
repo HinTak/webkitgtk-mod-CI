@@ -73,6 +73,7 @@ Patch1003: 0003-Calling-SkGraphics-SetOpenTypeSVGDecoderFactory-and-.patch
 Patch1004: 0004-Have-shaper.patch
 Patch1005: 0005-Missing-dependency-to-svg-module.patch
 Patch1006: 0006-XML-code-needs-expat.patch
+Patch1007: 0007-set-c-17-src-xml-SkDOM.cpp-does-not-build-with-c-23-.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
