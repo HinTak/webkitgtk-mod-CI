@@ -70,8 +70,8 @@ Source2:        webkitgtk-keys.gpg
 Patch1001: 0001-skresources-svg-skshaper-skunicode.patch
 Patch1002: 0002-Adding-svg-skresources-SkShaper-and-SkUnicode-to-CMa.patch
 Patch1003: 0003-Calling-SkGraphics-SetOpenTypeSVGDecoderFactory-and-.patch
-Patch1004: 0004-Have-shaper.patch
-Patch1005: 0005-Missing-dependency-to-svg-module.patch
+Patch1004: 0004-skShaper-depends-on-Harfbuzz-and-needs-a-few-build-o.patch
+Patch1005: 0005-Missing-files-from-webkitgtk-s-skia-core-which-svg-m.patch
 Patch1006: 0006-XML-code-needs-expat.patch
 Patch1007: 0007-set-c-17-src-xml-SkDOM.cpp-does-not-build-with-c-23-.patch
 
