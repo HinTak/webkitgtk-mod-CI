@@ -1,7 +1,7 @@
-From 5b1d4debd7104c67aea710859b472c38a78ae75d Mon Sep 17 00:00:00 2001
+From 17d6c897ac6cd52147c9a715ea42bcd35fb1be76 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Thu, 21 Nov 2024 04:16:10 +0000
-Subject: [PATCH 8/8] Have shaper
+Subject: [PATCH 4/6] Have shaper
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---

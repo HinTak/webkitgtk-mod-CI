@@ -1,7 +1,7 @@
-From 76541f0692426005fe1deafe019d829ceb959242 Mon Sep 17 00:00:00 2001
+From e31bf250632e67eb3030a1bbaac98c339b756eba Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Wed, 20 Nov 2024 22:33:20 +0000
-Subject: [PATCH 3/3] Calling SkGraphics::SetOpenTypeSVGDecoderFactory and
+Subject: [PATCH 3/6] Calling SkGraphics::SetOpenTypeSVGDecoderFactory and
  Symlink header
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
@@ -11,10 +11,10 @@ Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
  2 files changed, 8 insertions(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index 350ac744..581f1f1f 100644
+index 2978fc01..0f7ffaeb 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
-@@ -994,6 +994,11 @@ file(CREATE_LINK
+@@ -1007,6 +1007,11 @@ file(CREATE_LINK
      "${Skia_FRAMEWORK_HEADERS_DIR}/skia"
      SYMBOLIC
  )

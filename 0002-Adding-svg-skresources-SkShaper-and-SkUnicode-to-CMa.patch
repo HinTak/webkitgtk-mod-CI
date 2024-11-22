@@ -1,18 +1,19 @@
-From b43482fc12a97b530648263ef0f1dcaf9ffb9e81 Mon Sep 17 00:00:00 2001
+From 5383250965d8a92bfd137878656c46d2036ee796 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Wed, 20 Nov 2024 22:40:19 +0000
-Subject: [PATCH 2/3] Adding svg and skresources to CMakeLists.txt
+Subject: [PATCH 2/6] Adding svg, skresources, SkShaper and SkUnicode to
+ CMakeLists.txt
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---
- Source/ThirdParty/skia/CMakeLists.txt | 48 +++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ Source/ThirdParty/skia/CMakeLists.txt | 61 +++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index dca346d4..350ac744 100644
+index dca346d4..2978fc01 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
-@@ -893,6 +893,54 @@ add_library(Skia STATIC
+@@ -893,6 +893,67 @@ add_library(Skia STATIC
      modules/skcms/src/skcms_TransformBaseline.cc
      modules/skcms/src/skcms_TransformHsw.cc
      modules/skcms/src/skcms_TransformSkx.cc
@@ -64,6 +65,19 @@ index dca346d4..350ac744 100644
 +
 +    modules/skresources/src/SkAnimCodecPlayer.cpp
 +    modules/skresources/src/SkResources.cpp
++
++    modules/skshaper/src/SkShaper.cpp
++    modules/skshaper/src/SkShaper_factory.cpp
++    modules/skshaper/src/SkShaper_harfbuzz.cpp
++    modules/skshaper/src/SkShaper_primitive.cpp
++    modules/skshaper/src/SkShaper_skunicode.cpp
++
++    modules/skunicode/src/SkBidiFactory_icu_full.cpp
++    modules/skunicode/src/SkUnicode.cpp
++    modules/skunicode/src/SkUnicode_hardcoded.cpp
++    modules/skunicode/src/SkUnicode_icu.cpp
++    modules/skunicode/src/SkUnicode_icu_bidi.cpp
++    modules/skunicode/src/SkUnicode_icu_builtin.cpp
  )
  
  if (ANDROID)
