@@ -19,6 +19,7 @@ jobs:
       - run: dnf install -y dnf-utils rpm-build
       - run: curl -o a.rpm https://kojipkgs.fedoraproject.org/packages/webkitgtk/2.46.3/1.fc40/src/webkitgtk-2.46.3-1.fc40.src.rpm
       - run: dnf builddep -y --srpm a.rpm
+      - run: dnf install -y expat expat-devel
       - run: dnf clean all
       - run: df
       - run: rpm -ivh a.rpm
