@@ -1,9 +1,8 @@
-From f40fed6a35f439f6dfa98323b9cae5a63d09fc65 Mon Sep 17 00:00:00 2001
+From 31fcc489d8de9267b9b053e9eb2ed299ac2e4f9b Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Thu, 21 Nov 2024 23:07:18 +0000
-Subject: [PATCH 5/7] Missing dependency to svg module
-
-missing SkParse::FindNamedColor
+Subject: [PATCH 5/7] Missing files from webkitgtk's skia core which svg module
+ depends on
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---

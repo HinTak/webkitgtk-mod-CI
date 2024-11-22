@@ -1,7 +1,7 @@
-From af2e6eb72385df09ce4262a71584dfdb2b0283ed Mon Sep 17 00:00:00 2001
+From e0f5a2c0288be926871228c2951b0cb7dcde4748 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Fri, 22 Nov 2024 00:02:15 +0000
-Subject: [PATCH 6/6] XML code needs expat
+Subject: [PATCH 6/7] XML code needs expat
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
  1 file changed, 2 insertions(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index da5707f4..44adc415 100644
+index 6af3dc21..947690c9 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
 @@ -4,6 +4,7 @@ set_property(DIRECTORY . PROPERTY FOLDER "skia")
@@ -20,7 +20,7 @@ index da5707f4..44adc415 100644
  
  if (ANDROID)
      find_package(EXPAT REQUIRED)
-@@ -985,6 +986,7 @@ endif ()
+@@ -986,6 +987,7 @@ endif ()
  target_link_libraries(Skia PRIVATE
      Epoxy::Epoxy
      HarfBuzz::HarfBuzz

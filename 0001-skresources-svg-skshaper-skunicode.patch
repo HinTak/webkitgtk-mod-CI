@@ -1,7 +1,7 @@
 From a4a6b64b46fd8ec4379b2826d24cb384c408874e Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Wed, 20 Nov 2024 22:16:29 +0000
-Subject: [PATCH 1/6] skresources, svg, skshaper, skunicode
+Subject: [PATCH 1/7] skresources, svg, skshaper, skunicode
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---

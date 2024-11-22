@@ -1,7 +1,7 @@
-From e31bf250632e67eb3030a1bbaac98c339b756eba Mon Sep 17 00:00:00 2001
+From 5789face741f5d7c01e1795441afcbe8514ce6d2 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Wed, 20 Nov 2024 22:33:20 +0000
-Subject: [PATCH 3/6] Calling SkGraphics::SetOpenTypeSVGDecoderFactory and
+Subject: [PATCH 3/7] Calling SkGraphics::SetOpenTypeSVGDecoderFactory and
  Symlink header
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>

@@ -1,7 +1,7 @@
-From 5383250965d8a92bfd137878656c46d2036ee796 Mon Sep 17 00:00:00 2001
+From df4229f43ad4e1cd4fe7f7edbb43006b2dd93574 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Wed, 20 Nov 2024 22:40:19 +0000
-Subject: [PATCH 2/6] Adding svg, skresources, SkShaper and SkUnicode to
+Subject: [PATCH 2/7] Adding svg, skresources, SkShaper and SkUnicode to
  CMakeLists.txt
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>

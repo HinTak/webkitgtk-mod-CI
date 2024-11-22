@@ -1,8 +1,11 @@
-From dc930164f57ea0bc230918f6b99e06a202258eb9 Mon Sep 17 00:00:00 2001
+From b1b04be5b5312321b0cec9a017d9dd6842776ba7 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Fri, 22 Nov 2024 02:47:20 +0000
 Subject: [PATCH 7/7] set c++ 17 - src/xml/SkDOM.cpp does not build with c++23;
  "std::unique_ptr<SkDOMParser> fParser;" line in header
+
+c++ 17 is what skia recommends, the rest of webkitgtk builds with c++23.
+unique_ptr itself changed behavior in c++23.
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---
@@ -10,7 +13,7 @@ Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
  1 file changed, 1 insertion(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index 44adc415..62e16696 100644
+index 947690c9..99f0c16f 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
 @@ -115,6 +115,7 @@ if (DEVELOPER_MODE AND (SKIA_ROOT_DIR OR NOT "$ENV{SKIA_ROOT_DIR}" STREQUAL ""))
