@@ -67,15 +67,12 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-Patch1001: 0001-skresources-and-svg.patch
-Patch1002: 0002-Adding-svg-and-skresources-to-CMakeLists.txt.patch
+Patch1001: 0001-skresources-svg-skshaper-skunicode.patch
+Patch1002: 0002-Adding-svg-skresources-SkShaper-and-SkUnicode-to-CMa.patch
 Patch1003: 0003-Calling-SkGraphics-SetOpenTypeSVGDecoderFactory-and-.patch
-Patch1004: 0004-needs-skshaper.patch
-Patch1005: 0005-Adding-SkShaper-to-CMakeLists.txt.patch
-Patch1006: 0006-skshaper-needs-skunicode.patch
-Patch1007: 0007-adding-SkUnicode-to-CMakeLists.txt.patch
-Patch1008: 0008-Have-shaper.patch
-Patch1009: 0009-Missing-dependency-to-svg-module.patch
+Patch1004: 0004-Have-shaper.patch
+Patch1005: 0005-Missing-dependency-to-svg-module.patch
+Patch1006: 0006-XML-code-needs-expat.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
