@@ -1,15 +1,17 @@
-From 801daf567e4463c24196b2c39bcffa27b7883450 Mon Sep 17 00:00:00 2001
+From f40fed6a35f439f6dfa98323b9cae5a63d09fc65 Mon Sep 17 00:00:00 2001
 From: Hin-Tak Leung <htl10@users.sourceforge.net>
 Date: Thu, 21 Nov 2024 23:07:18 +0000
-Subject: [PATCH 5/6] Missing dependency to svg module
+Subject: [PATCH 5/7] Missing dependency to svg module
+
+missing SkParse::FindNamedColor
 
 Signed-off-by: Hin-Tak Leung <htl10@users.sourceforge.net>
 ---
- Source/ThirdParty/skia/CMakeLists.txt | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ Source/ThirdParty/skia/CMakeLists.txt | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
-index 98080c64..da5707f4 100644
+index 98080c64..6af3dc21 100644
 --- a/Source/ThirdParty/skia/CMakeLists.txt
 +++ b/Source/ThirdParty/skia/CMakeLists.txt
 @@ -120,6 +120,7 @@ endif ()
@@ -28,17 +30,18 @@ index 98080c64..da5707f4 100644
      src/effects/SkCornerPathEffect.cpp
      src/effects/SkDashPathEffect.cpp
      src/effects/SkDiscretePathEffect.cpp
-@@ -866,6 +868,9 @@ add_library(Skia STATIC
+@@ -866,6 +868,10 @@ add_library(Skia STATIC
      src/utils/SkJSONWriter.cpp
      src/utils/SkMatrix22.cpp
      src/utils/SkNWayCanvas.cpp
 +    src/utils/SkOSPath.cpp
 +    src/utils/SkParse.cpp
 +    src/utils/SkParsePath.cpp
++    src/utils/SkParseColor.cpp
      src/utils/SkPatchUtils.cpp
      src/utils/SkPolyUtils.cpp
      src/utils/SkShaderUtils.cpp
-@@ -889,6 +894,10 @@ add_library(Skia STATIC
+@@ -889,6 +895,10 @@ add_library(Skia STATIC
      src/sfnt/SkOTTable_name.cpp
      src/sfnt/SkOTUtils.cpp
  
