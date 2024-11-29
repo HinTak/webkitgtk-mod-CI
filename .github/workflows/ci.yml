@@ -42,3 +42,38 @@ jobs:
             rpms.zip
           draft: false
           prerelease: false
+
+#Identical, just using webkitgtk-2.spec
+  fedora-job-2:
+    runs-on: ubuntu-24.04
+    container: fedora:41
+    permissions: write-all
+    steps:
+      - run: cat /etc/os-release
+      - run: df
+      - run: dnf install -y dnf-utils rpm-build
+      - run: curl -o webkitgtk.src.rpm https://kojipkgs.fedoraproject.org//packages/webkitgtk/2.46.4/1.fc41/src/webkitgtk-2.46.4-1.fc41.src.rpm
+      - run: dnf builddep -y webkitgtk.src.rpm
+      - run: dnf install -y expat expat-devel
+      - run: dnf clean all
+      - run: df
+      - run: rpm -ivh webkitgtk.src.rpm
+      - uses: actions/checkout@v4
+      - run: cp *.patch ~/rpmbuild/SOURCES/
+      - run: rpmbuild -bb webkitgtk-2.spec
+      - run: df
+      - run: rm -f ~/rpmbuild/RPMS/x86_64/*debug*
+      - run: cp -r ~/rpmbuild/RPMS .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rpms
+          path: RPMS
+      - run: zip -r9X rpms-2.zip RPMS
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/webkitgtk')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            rpms-2.zip
+          draft: false
+          prerelease: false
