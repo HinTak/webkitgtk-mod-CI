@@ -17,12 +17,12 @@ jobs:
       - run: cat /etc/os-release
       - run: df
       - run: dnf install -y dnf-utils rpm-build
-      - run: curl -o a.rpm https://kojipkgs.fedoraproject.org//packages/webkitgtk/2.46.4/1.fc41/src/webkitgtk-2.46.4-1.fc41.src.rpm
-      - run: dnf builddep -y a.rpm
+      - run: curl -o webkitgtk.src.rpm https://kojipkgs.fedoraproject.org//packages/webkitgtk/2.46.4/1.fc41/src/webkitgtk-2.46.4-1.fc41.src.rpm
+      - run: dnf builddep -y webkitgtk.src.rpm
       - run: dnf install -y expat expat-devel
       - run: dnf clean all
       - run: df
-      - run: rpm -ivh a.rpm
+      - run: rpm -ivh webkitgtk.src.rpm
       - uses: actions/checkout@v4
       - run: cp *.patch ~/rpmbuild/SOURCES/
       - run: rpmbuild -bb webkitgtk.spec
