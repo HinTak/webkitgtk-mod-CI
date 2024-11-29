@@ -11,13 +11,13 @@ on:
 jobs:
   fedora-job:
     runs-on: ubuntu-24.04
-    container: fedora:40
+    container: fedora:41
     permissions: write-all
     steps:
       - run: cat /etc/os-release
       - run: df
       - run: dnf install -y dnf-utils rpm-build
-      - run: curl -o a.rpm https://kojipkgs.fedoraproject.org/packages/webkitgtk/2.46.3/1.fc40/src/webkitgtk-2.46.3-1.fc40.src.rpm
+      - run: curl -o a.rpm https://kojipkgs.fedoraproject.org//packages/webkitgtk/2.46.4/1.fc41/src/webkitgtk-2.46.4-1.fc41.src.rpm
       - run: dnf builddep -y --srpm a.rpm
       - run: dnf install -y expat expat-devel
       - run: dnf clean all
