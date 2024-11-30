@@ -66,7 +66,7 @@ jobs:
       - run: cp -r ~/rpmbuild/RPMS .
       - uses: actions/upload-artifact@v4
         with:
-          name: rpms
+          name: rpms-2
           path: RPMS
       - run: zip -r9X rpms-2.zip RPMS
       - name: Release
