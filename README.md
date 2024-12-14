@@ -1,7 +1,7 @@
 [![CI](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml/badge.svg)](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml)
 
 This repo is an experiment trying to addess:
-https://bugs.webkit.org/show_bug.cgi?id=283246
+[[GTK] regression: ot-svg font support lost in 2.46 with skia](https://bugs.webkit.org/show_bug.cgi?id=283246)
 
 Go to either of the two urls (the bottom half of the latter) to see the difference:
 https://pixelambacht.nl/chromacheck/
