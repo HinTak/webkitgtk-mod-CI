@@ -1,0 +1,301 @@
+From 7bf0c3997b61bfa7e3410d5452fd23d82b7570ab Mon Sep 17 00:00:00 2001
+From: Adrian Perez de Castro <aperez@igalia.com>
+Date: Sun, 15 Dec 2024 15:22:05 -0800
+Subject: [PATCH] [GTK][WPE] Regression: ot-svg font support lost in 2.46 with
+ Skia https://bugs.webkit.org/show_bug.cgi?id=283246
+
+Reviewed by Michael Catanzaro.
+
+Make Skia use its own SVG render module in order to support OpenType
+fonts with SVG glyph data. A new USE_SKIA_OPENTYPE_SVG build option
+may be used to toggle this feature, which is enabled by default.
+
+While it would be tempting to use WebKit's SVG renderer to handle this
+case, in practice it gets complicated because handling such fonts will
+attempt to render SVG while holding font-related locks, and using a
+WebKit document to render SVG will try to enumerate fonts, resulting in
+deadlocks. Moreover, WebKit's SVG rendering support is oriented towards
+inclusion of SVG content into Web content, and is more heavyweight than
+the (relatively small) Skia SVG renderer.
+
+Based on a patchset originally by Hin-Tak Leung <htl10@users.sourceforge.net>.
+
+* Source/ThirdParty/skia/CMakeLists.txt: Build SVG module and needed
+  support files when the USE_SKIA_OPENTYPE_SVG option is enabled. This
+  adds a new dependency on the Expat XML parser library. The symlinks
+  to the include directories are rearranged in order to allow paths
+  like <skia/modulename/file.h>.
+* Source/WebKit/WebProcess/gtk/WebProcessMainGtk.cpp: Set the OpenType
+  SVG decoder factory function to enable the OpenType-SVG support.
+* Source/WebKit/WebProcess/wpe/WebProcessMainWPE.cpp: Ditto.
+* Source/cmake/OptionsGTK.cmake: Add a new USE_SKIA_OPENTYPE_SVG option,
+  enabled by default.
+* Source/cmake/OptionsWPE.cmake: Ditto.
+* Tools/gtk/manifest.txt.in: Include files from the Skia svg, skshaper,
+  and skresources modules in tarballs.
+* Tools/wpe/manifest.txt.in: Ditto.
+
+Canonical link: https://commits.webkit.org/287859@main
+---
+ Source/ThirdParty/skia/CMakeLists.txt         | 103 +++++++++++++++++-
+ .../WebProcess/gtk/WebProcessMainGtk.cpp      |   6 +
+ .../WebProcess/wpe/WebProcessMainWPE.cpp      |   6 +
+ Source/cmake/OptionsGTK.cmake                 |   2 +
+ Source/cmake/OptionsWPE.cmake                 |   2 +
+ Tools/gtk/manifest.txt.in                     |   6 +
+ Tools/wpe/manifest.txt.in                     |   6 +
+ 7 files changed, 127 insertions(+), 4 deletions(-)
+
+diff --git a/Source/ThirdParty/skia/CMakeLists.txt b/Source/ThirdParty/skia/CMakeLists.txt
+index 2f20123e16626..2694b3eed2a8c 100644
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -946,6 +946,90 @@ else ()
+         Freetype::Freetype
+     )
+ endif ()
++
++if (USE_SKIA_OPENTYPE_SVG)
++    find_package(EXPAT)
++    if (NOT EXPAT_FOUND)
++        message(FATAL_ERROR "Expat is required by USE_SKIA_OPENTYPE_SVG")
++    endif ()
++
++    target_link_libraries(Skia PRIVATE
++        EXPAT::EXPAT
++        HarfBuzz::HarfBuzz
++    )
++    target_compile_definitions(Skia PRIVATE
++        SK_ENABLE_SVG
++
++        SK_DISABLE_LEGACY_SKSHAPER_FUNCTIONS
++
++        SK_SHAPER_HARFBUZZ_AVAILABLE
++        SK_SHAPER_PRIMITIVE_AVAILABLE
++    )
++    target_sources(Skia PRIVATE
++        src/base/SkBase64.cpp
++
++        src/effects/SkColorMatrix.cpp
++
++        src/utils/SkOSPath.cpp
++        src/utils/SkParseColor.cpp
++        src/utils/SkParsePath.cpp
++
++        src/xml/SkDOM.cpp
++        src/xml/SkXMLParser.cpp
++
++        modules/skresources/src/SkAnimCodecPlayer.cpp
++        modules/skresources/src/SkResources.cpp
++
++        modules/skshaper/src/SkShaper.cpp
++        modules/skshaper/src/SkShaper_factory.cpp
++        modules/skshaper/src/SkShaper_harfbuzz.cpp
++        modules/skshaper/src/SkShaper_primitive.cpp
++
++        modules/svg/src/SkSVGAttribute.cpp
++        modules/svg/src/SkSVGAttributeParser.cpp
++        modules/svg/src/SkSVGCircle.cpp
++        modules/svg/src/SkSVGClipPath.cpp
++        modules/svg/src/SkSVGContainer.cpp
++        modules/svg/src/SkSVGDOM.cpp
++        modules/svg/src/SkSVGEllipse.cpp
++        modules/svg/src/SkSVGFe.cpp
++        modules/svg/src/SkSVGFeBlend.cpp
++        modules/svg/src/SkSVGFeColorMatrix.cpp
++        modules/svg/src/SkSVGFeComponentTransfer.cpp
++        modules/svg/src/SkSVGFeComposite.cpp
++        modules/svg/src/SkSVGFeDisplacementMap.cpp
++        modules/svg/src/SkSVGFeFlood.cpp
++        modules/svg/src/SkSVGFeGaussianBlur.cpp
++        modules/svg/src/SkSVGFeImage.cpp
++        modules/svg/src/SkSVGFeLightSource.cpp
++        modules/svg/src/SkSVGFeLighting.cpp
++        modules/svg/src/SkSVGFeMerge.cpp
++        modules/svg/src/SkSVGFeMorphology.cpp
++        modules/svg/src/SkSVGFeOffset.cpp
++        modules/svg/src/SkSVGFeTurbulence.cpp
++        modules/svg/src/SkSVGFilter.cpp
++        modules/svg/src/SkSVGFilterContext.cpp
++        modules/svg/src/SkSVGGradient.cpp
++        modules/svg/src/SkSVGImage.cpp
++        modules/svg/src/SkSVGLine.cpp
++        modules/svg/src/SkSVGLinearGradient.cpp
++        modules/svg/src/SkSVGMask.cpp
++        modules/svg/src/SkSVGNode.cpp
++        modules/svg/src/SkSVGOpenTypeSVGDecoder.cpp
++        modules/svg/src/SkSVGPath.cpp
++        modules/svg/src/SkSVGPattern.cpp
++        modules/svg/src/SkSVGPoly.cpp
++        modules/svg/src/SkSVGRadialGradient.cpp
++        modules/svg/src/SkSVGRect.cpp
++        modules/svg/src/SkSVGRenderContext.cpp
++        modules/svg/src/SkSVGSVG.cpp
++        modules/svg/src/SkSVGShape.cpp
++        modules/svg/src/SkSVGStop.cpp
++        modules/svg/src/SkSVGText.cpp
++        modules/svg/src/SkSVGTransformableNode.cpp
++        modules/svg/src/SkSVGUse.cpp
++    )
++endif ()
+     
+ target_link_libraries(Skia PRIVATE
+     JPEG::JPEG
+@@ -962,6 +1046,7 @@ WEBKIT_ADD_TARGET_CXX_FLAGS(Skia
+     -Wno-dangling-reference
+     -Wno-deprecated
+     -Wno-psabi
++    -Wno-redundant-move
+     -Wno-suggest-attribute=format
+     -Wno-undef
+     -Wno-uninitialized
+@@ -973,14 +1058,24 @@ if (WIN32)
+ endif ()
+ 
+ target_include_directories(Skia
+-    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}"
+-    INTERFACE "${Skia_FRAMEWORK_HEADERS_DIR}"
++    PUBLIC
++        "${CMAKE_CURRENT_SOURCE_DIR}"
++    INTERFACE
++        "${Skia_FRAMEWORK_HEADERS_DIR}/top"
++        "${Skia_FRAMEWORK_HEADERS_DIR}/mod"
+ )
+ 
+-file(MAKE_DIRECTORY "${Skia_FRAMEWORK_HEADERS_DIR}")
++file(MAKE_DIRECTORY "${Skia_FRAMEWORK_HEADERS_DIR}/top")
+ file(CREATE_LINK
+     "${CMAKE_CURRENT_SOURCE_DIR}/include"
+-    "${Skia_FRAMEWORK_HEADERS_DIR}/skia"
++    "${Skia_FRAMEWORK_HEADERS_DIR}/top/skia"
++    SYMBOLIC
++)
++
++file(MAKE_DIRECTORY "${Skia_FRAMEWORK_HEADERS_DIR}/mod/skia/modules")
++file(CREATE_LINK
++    "${CMAKE_CURRENT_SOURCE_DIR}/modules/svg/include"
++    "${Skia_FRAMEWORK_HEADERS_DIR}/mod/skia/modules/svg"
+     SYMBOLIC
+ )
+ 
+diff --git a/Source/WebKit/WebProcess/gtk/WebProcessMainGtk.cpp b/Source/WebKit/WebProcess/gtk/WebProcessMainGtk.cpp
+index ff864ef3353ff..bebad2dae56ca 100644
+--- a/Source/WebKit/WebProcess/gtk/WebProcessMainGtk.cpp
++++ b/Source/WebKit/WebProcess/gtk/WebProcessMainGtk.cpp
+@@ -42,6 +42,9 @@
+ 
+ #if USE(SKIA)
+ #include <skia/core/SkGraphics.h>
++#if USE(SKIA_OPENTYPE_SVG)
++#include <skia/modules/svg/SkSVGOpenTypeSVGDecoder.h>
++#endif
+ #endif
+ 
+ #if USE(SYSPROF_CAPTURE)
+@@ -65,6 +68,9 @@ class WebProcessMainGtk final: public AuxiliaryProcessMainBase<WebProcess> {
+ 
+ #if USE(SKIA)
+         SkGraphics::Init();
++#if USE(SKIA_OPENTYPE_SVG)
++        SkGraphics::SetOpenTypeSVGDecoderFactory(SkSVGOpenTypeSVGDecoder::Make);
++#endif
+ #endif
+ 
+ #if ENABLE(DEVELOPER_MODE)
+diff --git a/Source/WebKit/WebProcess/wpe/WebProcessMainWPE.cpp b/Source/WebKit/WebProcess/wpe/WebProcessMainWPE.cpp
+index 3d4a611d830a8..a06e33fd04f81 100644
+--- a/Source/WebKit/WebProcess/wpe/WebProcessMainWPE.cpp
++++ b/Source/WebKit/WebProcess/wpe/WebProcessMainWPE.cpp
+@@ -45,6 +45,9 @@
+ 
+ #if USE(SYSPROF_CAPTURE)
+ #include <wtf/SystemTracing.h>
++#if USE(SKIA_OPENTYPE_SVG)
++#include <skia/modules/svg/SkSVGOpenTypeSVGDecoder.h>
++#endif
+ #endif
+ 
+ namespace WebKit {
+@@ -64,6 +67,9 @@ class WebProcessMainWPE final : public AuxiliaryProcessMainBase<WebProcess> {
+ 
+ #if USE(SKIA)
+         SkGraphics::Init();
++#if USE(SKIA_OPENTYPE_SVG)
++        SkGraphics::SetOpenTypeSVGDecoderFactory(SkSVGOpenTypeSVGDecoder::Make);
++#endif
+ #endif
+ 
+ #if ENABLE(DEVELOPER_MODE)
+diff --git a/Source/cmake/OptionsGTK.cmake b/Source/cmake/OptionsGTK.cmake
+index 4c10c9f93c23f..7eb9c80b2788c 100644
+--- a/Source/cmake/OptionsGTK.cmake
++++ b/Source/cmake/OptionsGTK.cmake
+@@ -50,12 +50,14 @@ WEBKIT_OPTION_DEFINE(USE_LIBBACKTRACE "Whether to enable usage of libbacktrace."
+ WEBKIT_OPTION_DEFINE(USE_LIBDRM "Whether to enable usage of libdrm." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_LIBHYPHEN "Whether to enable the default automatic hyphenation implementation." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_LIBSECRET "Whether to enable the persistent credential storage using libsecret." PUBLIC ON)
++WEBKIT_OPTION_DEFINE(USE_SKIA_OPENTYPE_SVG "Whether to use the Skia built-in support for OpenType SVG fonts." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_SOUP2 "Whether to enable usage of Soup 2 instead of Soup 3." PUBLIC OFF)
+ WEBKIT_OPTION_DEFINE(USE_SYSTEM_SYSPROF_CAPTURE "Whether to use a system-provided libsysprof-capture" PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(ENABLE_JSC_RESTRICTED_OPTIONS_BY_DEFAULT "Whether to enable dangerous development options in JSC by default." PRIVATE OFF)
+ 
+ WEBKIT_OPTION_DEPEND(ENABLE_DOCUMENTATION ENABLE_INTROSPECTION)
+ WEBKIT_OPTION_DEPEND(USE_GBM USE_LIBDRM)
++WEBKIT_OPTION_DEPEND(USE_SKIA_OPENTYPE_SVG USE_SKIA)
+ 
+ WEBKIT_OPTION_CONFLICT(USE_GTK4 USE_SOUP2)
+ 
+diff --git a/Source/cmake/OptionsWPE.cmake b/Source/cmake/OptionsWPE.cmake
+index cf85c5a72ba22..121f7ac5c5841 100644
+--- a/Source/cmake/OptionsWPE.cmake
++++ b/Source/cmake/OptionsWPE.cmake
+@@ -100,6 +100,7 @@ WEBKIT_OPTION_DEFINE(USE_FLITE "Whether to enable usage of Flite for speech synt
+ WEBKIT_OPTION_DEFINE(USE_GBM "Whether to enable usage of GBM." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_LIBBACKTRACE "Whether to enable usage of libbacktrace." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_LIBDRM "Whether to enable usage of libdrm." PUBLIC ON)
++WEBKIT_OPTION_DEFINE(USE_SKIA_OPENTYPE_SVG "Whether to use the Skia built-in support for OpenType SVG fonts." PUBLIC ON)
+ WEBKIT_OPTION_DEFINE(USE_QT6 "Whether to use Qt6 instead of Qt5" PUBLIC OFF)
+ 
+ # Private options specific to the WPE port.
+@@ -114,6 +115,7 @@ WEBKIT_OPTION_CONFLICT(ENABLE_WPE_PLATFORM ENABLE_WPE_1_1_API)
+ 
+ WEBKIT_OPTION_DEPEND(ENABLE_DOCUMENTATION ENABLE_INTROSPECTION)
+ WEBKIT_OPTION_DEPEND(USE_QT6 ENABLE_WPE_PLATFORM)
++WEBKIT_OPTION_DEPEND(USE_SKIA_OPENTYPE_SVG USE_SKIA)
+ WEBKIT_OPTION_DEPEND(USE_SYSTEM_SYSPROF_CAPTURE USE_SYSPROF_CAPTURE)
+ 
+ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+diff --git a/Tools/gtk/manifest.txt.in b/Tools/gtk/manifest.txt.in
+index ffd96790009cc..d7a3d52ca5f55 100644
+--- a/Tools/gtk/manifest.txt.in
++++ b/Tools/gtk/manifest.txt.in
+@@ -67,6 +67,12 @@ file Source/ThirdParty/skia/CMakeLists.txt
+ file Source/ThirdParty/skia/LICENSE
+ directory Source/ThirdParty/skia/include
+ directory Source/ThirdParty/skia/modules/skcms
++directory Source/ThirdParty/skia/modules/skresources/include
++directory Source/ThirdParty/skia/modules/skresources/src
++directory Source/ThirdParty/skia/modules/skshaper/include
++directory Source/ThirdParty/skia/modules/skshaper/src
++directory Source/ThirdParty/skia/modules/svg/include
++directory Source/ThirdParty/skia/modules/svg/src
+ directory Source/ThirdParty/skia/src
+ directory Source/ThirdParty/unifdef
+ directory Source/ThirdParty/xdgmime
+diff --git a/Tools/wpe/manifest.txt.in b/Tools/wpe/manifest.txt.in
+index 6460383f500ab..d9e2bbafc0453 100644
+--- a/Tools/wpe/manifest.txt.in
++++ b/Tools/wpe/manifest.txt.in
+@@ -67,6 +67,12 @@ file Source/ThirdParty/skia/CMakeLists.txt
+ file Source/ThirdParty/skia/LICENSE
+ directory Source/ThirdParty/skia/include
+ directory Source/ThirdParty/skia/modules/skcms
++directory Source/ThirdParty/skia/modules/skresources/include
++directory Source/ThirdParty/skia/modules/skresources/src
++directory Source/ThirdParty/skia/modules/skshaper/include
++directory Source/ThirdParty/skia/modules/skshaper/src
++directory Source/ThirdParty/skia/modules/svg/include
++directory Source/ThirdParty/skia/modules/svg/src
+ directory Source/ThirdParty/skia/src
+ directory Source/ThirdParty/unifdef
+ directory Source/ThirdParty/xdgmime
