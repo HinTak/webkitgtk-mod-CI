@@ -2,7 +2,10 @@
 
 This repo is an experiment trying to addess:
 [[GTK] regression: ot-svg font support lost in 2.46 with skia](https://bugs.webkit.org/show_bug.cgi?id=283246)
+
 [REGRESSION(287859@main): Building with USE_SKIA_OPENTYPE_SVG=ON fails with Clang 18.1+](https://bugs.webkit.org/show_bug.cgi?id=284779)
+
+[Building in C++23 mode with Clang fails on SkDOM.cpp](https://issues.skia.org/384605093)
 
 Go to either of the two urls (the bottom half of the latter) to see the difference:
 https://pixelambacht.nl/chromacheck/
