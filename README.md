@@ -1,7 +1,10 @@
 [![CI](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml/badge.svg)](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml)
 
 This repo is an experiment trying to addess:
-[[GTK] regression: ot-svg font support lost in 2.46 with skia](https://bugs.webkit.org/show_bug.cgi?id=283246)
+[[GTK] regression: ot-svg font support lost in 2.46 with skia](https://bugs.webkit.org/show_bug.cgi?id=283246).
+[Fixed commit](https://commits.webkit.org/287859@main).
+[Direct link to fixed commit](https://github.com/WebKit/WebKit/commit/7bf0c3997b61bfa7e3410d5452fd23d82b7570ab).
+The fix is first available in `webkitgtk-2.47.3`.
 
 [REGRESSION(287859@main): Building with USE_SKIA_OPENTYPE_SVG=ON fails with Clang 18.1+](https://bugs.webkit.org/show_bug.cgi?id=284779)
 
