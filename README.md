@@ -1,5 +1,13 @@
 [![CI](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml/badge.svg)](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml)
 
+[WebKitGTK 2.48.0 released!](https://webkitgtk.org/2025/03/14/webkitgtk2.48.0-released.html) 14 MARCH 2025
+
+- Bring back support for OpenType-SVG fonts using Skia SVG module.
+
+The Goal of this repo has been reached.
+
+# Origin
+
 This repo is an experiment trying to addess:
 [[GTK] regression: ot-svg font support lost in 2.46 with skia](https://bugs.webkit.org/show_bug.cgi?id=283246).
 [Fixed commit](https://commits.webkit.org/287859@main).
