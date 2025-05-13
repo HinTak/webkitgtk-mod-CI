@@ -1,3 +1,9 @@
+This repository focuses on restoring SVG in OpenType support for WebKitGTK. This feature was affected during the transition from Cairo (used in version 2.44) to Skia (used in version 2.46).
+
+- Purpose: To bring back SVG in OpenType support after WebKitGTK's rendering backend changed.
+
+- Topics/Technologies: WebKitGTK, Skia, Cairo, SVG, and OpenType.
+
 [![CI](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml/badge.svg)](https://github.com/HinTak/webkitgtk-mod-CI/actions/workflows/ci.yml)
 
 [WebKitGTK 2.48.0 released!](https://webkitgtk.org/2025/03/14/webkitgtk2.48.0-released.html) 14 MARCH 2025
